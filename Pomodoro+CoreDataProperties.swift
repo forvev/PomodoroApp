@@ -20,7 +20,13 @@ extension Pomodoro {
     @NSManaged public var id: UUID?
     @NSManaged public var time: Date?
     @NSManaged public var cycles: Int16
-    @NSManaged public var toBloom: Bloom?
+    @NSManaged public var toBloom: NSSet?
+    public var itemArray: [Pomodoro] {
+        let set = toBloom as? Set<Pomodoro> ?? []
+        return set.sorted{
+            $0.time! < $1.time!
+        }
+    }
 
 }
 

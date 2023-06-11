@@ -20,6 +20,7 @@
 		3FF34F79284E472E00D6941C /* ShoppingItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF34F75284E472E00D6941C /* ShoppingItem+CoreDataClass.swift */; };
 		3FF34F7A284E472E00D6941C /* ShoppingItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF34F76284E472E00D6941C /* ShoppingItem+CoreDataProperties.swift */; };
 		3FF34F7C284E4F8E00D6941C /* ListContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF34F7B284E4F8E00D6941C /* ListContents.swift */; };
+		7594B3A52A3666FD009175F9 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594B3A42A3666FC009175F9 /* ClockView.swift */; };
 		75ECF4322A30646F0076358E /* Pomodoro+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF42E2A30646F0076358E /* Pomodoro+CoreDataClass.swift */; };
 		75ECF4332A30646F0076358E /* Pomodoro+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF42F2A30646F0076358E /* Pomodoro+CoreDataProperties.swift */; };
 		75ECF4342A30646F0076358E /* Bloom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF4302A30646F0076358E /* Bloom+CoreDataClass.swift */; };
@@ -42,6 +43,7 @@
 		3FF34F75284E472E00D6941C /* ShoppingItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3FF34F76284E472E00D6941C /* ShoppingItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3FF34F7B284E4F8E00D6941C /* ListContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContents.swift; sourceTree = "<group>"; };
+		7594B3A42A3666FC009175F9 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		75ECF42E2A30646F0076358E /* Pomodoro+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataClass.swift"; sourceTree = "<group>"; };
 		75ECF42F2A30646F0076358E /* Pomodoro+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		75ECF4302A30646F0076358E /* Bloom+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bloom+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				3FF34F5C284E452200D6941C /* AppDelegate.swift */,
 				3FF34F5E284E452200D6941C /* SceneDelegate.swift */,
 				3FF34F63284E452200D6941C /* ContentView.swift */,
+				7594B3A42A3666FC009175F9 /* ClockView.swift */,
 				3FF34F7B284E4F8E00D6941C /* ListContents.swift */,
 				3F85CB5228578928001BBE5F /* Converter.swift */,
 				3FF34F65284E452400D6941C /* Assets.xcassets */,
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FF34F5D284E452200D6941C /* AppDelegate.swift in Sources */,
+				7594B3A52A3666FD009175F9 /* ClockView.swift in Sources */,
 				3FF34F78284E472E00D6941C /* ShoppingList+CoreDataProperties.swift in Sources */,
 				75ECF4332A30646F0076358E /* Pomodoro+CoreDataProperties.swift in Sources */,
 				3FF34F7C284E4F8E00D6941C /* ListContents.swift in Sources */,
