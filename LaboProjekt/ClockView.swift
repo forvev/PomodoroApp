@@ -9,6 +9,13 @@
 import SwiftUI
 
 struct ClockView: View {
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.time, ascending: true)], animation: .default)
+    private var pomodoroList : FetchedResults<Pomodoro>
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.id, ascending: true)],
+                  animation: .default)
+    private var bloomList: FetchedResults<Bloom>
+    
     @State var startDate : Date = Date()
     @State var timeRemaining: TimeInterval = 1500 // 25 minutes in seconds
     @State var isPressed: Bool = false
@@ -27,7 +34,7 @@ struct ClockView: View {
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
-                    Text("Time remaining: \(formattedTimeRemaining) sec")
+                    Text("Time remaining: \(formattedTimeRemaining)")
                                         .onReceive(timer) { _ in
                                             if (timeRemaining > 0 && isPressed == true){
                                                 timeRemaining -= 1
@@ -41,6 +48,15 @@ struct ClockView: View {
                             .resizable()
                             .frame(width: 50, height: 50)
                     }
+                    
+//                    List{
+//                        ForEach(pomodoroList){ pomodoro in
+//                            //Section(header: Text("\()"))
+//                            ForEach(pomodoro.itemArray){ bloom in
+//                                //Text("cycles: \(bloom.)")
+//                            }
+//                        }
+//                    }
                 }
             }
         }

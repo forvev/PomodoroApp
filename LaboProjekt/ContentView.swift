@@ -52,17 +52,43 @@ struct ContentView: View {
                             .frame(width: 100)
                             .border(Color.gray)
                     })
-                    .onTapGesture {addBloom()}
+                    .onTapGesture {addPomodoro()}
                 }
             }
         }
     }
     
     
-    public func addBloom(){
+//    public func addBloom(){
+//        let newBloom = Bloom(context: viewContext)
+//        newBloom.stage = chosenBloom
+//        newBloom.goal = userGoal
+//
+//        //a new istance of the pomodoro entity which will be bounded with Bloom entity
+//        let createPomodoro = Pomodoro(context: viewContext)
+//        createPomodoro.cycles = 0
+//        createPomodoro.time = Date()
+//
+//        //newBloom.toPomodoro = createPomodoro
+//        do{
+//            try viewContext.save()
+//        }catch{
+//            let nsError = error as NSError
+//            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//        }
+//    }
+    
+    public func addPomodoro(){
+        let newPomodoro = Pomodoro(context: viewContext)
+        newPomodoro.cycles = 0
+        newPomodoro.time = Date()
+        newPomodoro.goal = userGoal
+        
+        //create a new instance of the Bloom entity which will be assigned to the specific Pomodoro's task
         let newBloom = Bloom(context: viewContext)
         newBloom.stage = chosenBloom
-        newBloom.goal = userGoal
+        
+        newPomodoro.toBloom = newBloom
         do{
             try viewContext.save()
         }catch{

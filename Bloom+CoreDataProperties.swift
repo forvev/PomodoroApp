@@ -19,8 +19,16 @@ extension Bloom {
 
     @NSManaged public var id: UUID?
     @NSManaged public var stage: Int16
-    @NSManaged public var goal: String?
-    @NSManaged public var toPomodoro: Pomodoro?
+    //@NSManaged public var toPomodoro: Pomodoro?
+    @NSManaged public var toBloom: NSSet?
+    
+    public var itemArray: [Bloom] {
+        let set = toBloom as? Set<Bloom> ?? []
+        return set.sorted{
+            $0.stage < $1.stage
+        }
+    }
+    
 
 }
 
