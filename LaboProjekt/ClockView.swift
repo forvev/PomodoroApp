@@ -9,8 +9,42 @@
 import SwiftUI
 
 struct ClockView: View {
+    @State var startDate : Date = Date()
+    @State var timeRemaining: TimeInterval = 1500 // 25 minutes in seconds
+    @State var isPressed: Bool = false
+        
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    var formattedTimeRemaining: String {
+            let minutes = Int(timeRemaining) / 60
+            let seconds = Int(timeRemaining) % 60
+            return String(format: "%02d:%02d", minutes, seconds)
+        }
+        
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            ZStack{
+                Color(red: 0.621, green: 0.27, blue: 0.343)
+                    .edgesIgnoringSafeArea(.all)
+                VStack{
+                    Text("Time remaining: \(formattedTimeRemaining) sec")
+                                        .onReceive(timer) { _ in
+                                            if (timeRemaining > 0 && isPressed == true){
+                                                timeRemaining -= 1
+                                            }
+                                        }
+                                        .font(.largeTitle)
+                    
+                    Button{
+                        isPressed.toggle()
+                    }label:{Image(systemName: "play.circle.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                    }
+                }
+            }
+        }
+        
     }
 }
 

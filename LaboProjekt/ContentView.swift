@@ -48,13 +48,11 @@ struct ContentView: View {
                         
                     }
                     NavigationLink(destination: ClockView(), label:{
-//                        Text("confirm")
-//                            .frame(width: 100)
-//                            .border(Color.gray)
-                        Button("confirm", action: addBloom)
+                        Text("confirm")
                             .frame(width: 100)
                             .border(Color.gray)
                     })
+                    .onTapGesture {addBloom()}
                 }
             }
         }
