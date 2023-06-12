@@ -19,7 +19,6 @@ extension ShoppingItem {
 
     @NSManaged public var itemName: String?
     @NSManaged public var quantity: Int32
-    @NSManaged public var shoppingList: ShoppingList?
 
 }
 extension ShoppingItem: Identifiable {

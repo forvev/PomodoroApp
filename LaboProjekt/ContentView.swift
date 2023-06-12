@@ -8,16 +8,20 @@
 
 import SwiftUI
 struct ContentView: View {
-    @Environment (\.managedObjectContext) private var context
+    @Environment (\.managedObjectContext) private var viewContext
+    
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.time, ascending: true)], animation: .default)
-    private var Lists : FetchedResults<Pomodoro>
-    @State private var title : String = ""
-    @State var alert = false
+    private var pomodoroList : FetchedResults<Pomodoro>
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.id, ascending: true)],
+                  animation: .default)
+    private var bloomList: FetchedResults<Bloom>
     
     @State private var userGoal: String = ""
     let myColor = Color("myBackground")
+    
     @State var bloomTaks = ["Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"]
-    @State var chosenBloom : String = ""
+    @State var chosenBloom : Int16 = 1
     
     
     var body: some View {
@@ -34,99 +38,42 @@ struct ContentView: View {
                     
                     Picker(selection: $chosenBloom,
                            label: Text("Choose the level of Bloom")){
-                        Text("1. Knowledge").tag("Knowledge")
-                        Text("2. Comprehension").tag("Comprehension")
-                        Text("3. Application").tag("Application")
-                        Text("4. Analysis").tag("Analysis")
-                        Text("5. Synthesis").tag("Synthesis")
-                        Text("6. Evaluation").tag("Evaluation")
+                        Text("1. Knowledge").tag(1)
+                        Text("2. Comprehension").tag(2)
+                        Text("3. Application").tag(3)
+                        Text("4. Analysis").tag(4)
+                        Text("5. Synthesis").tag(5)
+                        Text("6. Evaluation").tag(6)
                         
                         
                     }
                     NavigationLink(destination: ClockView(), label:{
-                        Text("confirm")
+//                        Text("confirm")
+//                            .frame(width: 100)
+//                            .border(Color.gray)
+                        Button("confirm", action: addBloom)
                             .frame(width: 100)
                             .border(Color.gray)
                     })
-                    
-                    
                 }
             }
-            
-        
-        }
-        
-        VStack{
-            NavigationView{
-                VStack{
-                    TextField("Your goal", text: $userGoal)
-                        .border(Color.gray)
-                        .frame(width: 100)
-                    
-                }
-            }
-//            NavigationView{
-//                VStack{
-//                    NavigationLink(destination: Converter()){
-//                        Text("Konwerter")
-//                    }
-//                    List {
-//                        ForEach(Lists, id: \.self) {
-//                            list in
-//                            NavigationLink(destination: ListContents(list: list)){
-//                                Text(list.title!)
-//                            }
-//                        }.onDelete(perform: deleteList)
-//                    }
-//                    if(alert == true)
-//                    {
-//                        Text("Tytuł jest za krótki").foregroundColor(.red)
-//                    }
-//                    TextField("Tytuł nowej listy", text: $title).onTapGesture {
-//                        self.title = ""
-//                    }
-//                    Button("Dodaj Listę") {
-//                        self.addList()
-//                    }
-//                }
-//            }.navigationViewStyle(StackNavigationViewStyle())
-        }
-        
-    }
-    public func addList() {
-        alert = false
-        if(title != "")
-        {
-            let newList = ShoppingList(context: context)
-            newList.title = title
-            do {
-                try context.save()
-            } catch {
-                let error = error as NSError
-                fatalError("Error: \(error), \(error.userInfo)")
-            }
-            title = ""
-        }
-        else
-        {
-            alert = true
-        }
-        
-    }
-    private func deleteList(offsets: IndexSet) {
-        withAnimation {
-            offsets.map {
-                Lists[$0]
-            }.forEach(context.delete)
-            do {
-                try context.save()
-            } catch {
-                let myError = error as NSError
-                fatalError("Błąd przy usuwaniu rekordu \(myError), \(myError.userInfo)")
-            }
-
         }
     }
+    
+    
+    public func addBloom(){
+        let newBloom = Bloom(context: viewContext)
+        newBloom.stage = chosenBloom
+        newBloom.goal = userGoal
+        do{
+            try viewContext.save()
+        }catch{
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

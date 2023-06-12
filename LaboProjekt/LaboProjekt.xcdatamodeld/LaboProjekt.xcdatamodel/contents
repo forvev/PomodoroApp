@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bloom" representedClassName="Bloom" syncable="YES">
+        <attribute name="goal" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="stage" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="toPomodoro" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pomodoro" inverseName="toBloom" inverseEntity="Pomodoro"/>
@@ -10,14 +11,5 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="toBloom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bloom" inverseName="toPomodoro" inverseEntity="Bloom"/>
-    </entity>
-    <entity name="ShoppingItem" representedClassName=".ShoppingItem" syncable="YES">
-        <attribute name="itemName" optional="YES" attributeType="String"/>
-        <attribute name="quantity" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="shoppingList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="items" inverseEntity="ShoppingList"/>
-    </entity>
-    <entity name="ShoppingList" representedClassName=".ShoppingList" syncable="YES">
-        <attribute name="title" attributeType="String"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShoppingItem" inverseName="shoppingList" inverseEntity="ShoppingItem"/>
     </entity>
 </model>

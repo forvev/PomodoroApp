@@ -2,7 +2,7 @@
 //  Bloom+CoreDataProperties.swift
 //  LaboProjekt
 //
-//  Created by Artur Zelik on 07/06/2023.
+//  Created by Artur Zelik on 12/06/2023.
 //  Copyright © 2023 student. All rights reserved.
 //
 //
@@ -19,6 +19,7 @@ extension Bloom {
 
     @NSManaged public var id: UUID?
     @NSManaged public var stage: Int16
+    @NSManaged public var goal: String?
     @NSManaged public var toPomodoro: Pomodoro?
 
 }
