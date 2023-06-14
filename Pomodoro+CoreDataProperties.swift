@@ -2,7 +2,7 @@
 //  Pomodoro+CoreDataProperties.swift
 //  LaboProjekt
 //
-//  Created by Artur Zelik on 07/06/2023.
+//  Created by Artur Zelik on 14/06/2023.
 //  Copyright © 2023 student. All rights reserved.
 //
 //
@@ -17,12 +17,9 @@ extension Pomodoro {
         return NSFetchRequest<Pomodoro>(entityName: "Pomodoro")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var time: Date?
     @NSManaged public var cycles: Int16
     @NSManaged public var goal: String?
     @NSManaged public var toBloom: Bloom?
-    
 
 }
 

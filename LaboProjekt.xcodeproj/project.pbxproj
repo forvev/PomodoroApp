@@ -32,6 +32,8 @@
 		3FF34F6B284E452400D6941C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FF34F6D284E452400D6941C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7594B3A42A3666FC009175F9 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		7594B3A72A37AA5A009175F9 /* LaboProjekt 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "LaboProjekt 2.xcdatamodel"; sourceTree = "<group>"; };
+		7594B3A82A37ABDB009175F9 /* LaboProjekt3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaboProjekt3.xcdatamodel; sourceTree = "<group>"; };
 		75ECF42E2A30646F0076358E /* Pomodoro+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataClass.swift"; sourceTree = "<group>"; };
 		75ECF42F2A30646F0076358E /* Pomodoro+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		75ECF4302A30646F0076358E /* Bloom+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bloom+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -369,6 +371,8 @@
 		3FF34F60284E452200D6941C /* LaboProjekt.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				7594B3A82A37ABDB009175F9 /* LaboProjekt3.xcdatamodel */,
+				7594B3A72A37AA5A009175F9 /* LaboProjekt 2.xcdatamodel */,
 				3FF34F61284E452200D6941C /* LaboProjekt.xcdatamodel */,
 			);
 			currentVersion = 3FF34F61284E452200D6941C /* LaboProjekt.xcdatamodel */;

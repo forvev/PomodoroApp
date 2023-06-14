@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     @Environment (\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.time, ascending: true)], animation: .default)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.cycles, ascending: true)], animation: .default)
     private var pomodoroList : FetchedResults<Pomodoro>
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.id, ascending: true)],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stage, ascending: true)],
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
@@ -21,81 +21,112 @@ struct ContentView: View {
     let myColor = Color("myBackground")
     
     @State var bloomTaks = ["Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"]
-    @State var chosenBloom : Int16 = 1
+    //@State var chosenBloom : String = ""
+    @State private var chosenBloom: Bloom?
+    @State private var isActive: Bool = false
     
     
     var body: some View {
         NavigationView{
             ZStack{
+                let _ = print("hi1!\(bloomList.count)")
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack{
+                    if (bloomList.count == 0 ){
+                        let _ = print("hello")
+                        Button(action: addBloomList){
+                            Text("Add bloom list")
+                        }
+                    }
                     TextField("Your goal", text: $userGoal)
                         .border(Color.black)
                         .frame(width: 100)
                         .background(Color.white)
                     
-                    Picker(selection: $chosenBloom,
-                           label: Text("Choose the level of Bloom")){
-                        Text("1. Knowledge").tag(1)
-                        Text("2. Comprehension").tag(2)
-                        Text("3. Application").tag(3)
-                        Text("4. Analysis").tag(4)
-                        Text("5. Synthesis").tag(5)
-                        Text("6. Evaluation").tag(6)
-                        
-                        
+                    
+                    Picker(selection: $chosenBloom,  label: Text("Choose the level of Bloom")){
+                        ForEach(bloomList, id: \.self) { (bloom: Bloom) in
+                            Text(bloom.stage!).tag(bloom as Bloom?)
+                        }
                     }
-                    NavigationLink(destination: ClockView(), label:{
+//                    NavigationLink(destination: ClockView(), label:{
+//                        Text("confirm")
+//                            .frame(width: 100)
+//                            .border(Color.gray)
+//                            //.onTapGesture{addPomodoro()}
+//                    }
+//                    .onTapGesture {addPomodoro()})
+                    NavigationLink(destination: ClockView().onAppear{
+                        addPomodoro()
+                    }){
                         Text("confirm")
                             .frame(width: 100)
                             .border(Color.gray)
-                    })
-                    .onTapGesture {addPomodoro()}
+                    }
                 }
             }
         }
     }
     
-    
-//    public func addBloom(){
-//        let newBloom = Bloom(context: viewContext)
-//        newBloom.stage = chosenBloom
-//        newBloom.goal = userGoal
-//
-//        //a new istance of the pomodoro entity which will be bounded with Bloom entity
-//        let createPomodoro = Pomodoro(context: viewContext)
-//        createPomodoro.cycles = 0
-//        createPomodoro.time = Date()
-//
-//        //newBloom.toPomodoro = createPomodoro
-//        do{
-//            try viewContext.save()
-//        }catch{
-//            let nsError = error as NSError
-//            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//        }
-//    }
-    
     public func addPomodoro(){
+        let _ = print("hi2! user goal:\(userGoal)")
         let newPomodoro = Pomodoro(context: viewContext)
-        newPomodoro.cycles = 0
-        newPomodoro.time = Date()
+        let myCycles = Int16(0)
+        newPomodoro.cycles = myCycles
+        //newPomodoro.time = Date()
         newPomodoro.goal = userGoal
         
-        //create a new instance of the Bloom entity which will be assigned to the specific Pomodoro's task
-        let newBloom = Bloom(context: viewContext)
-        newBloom.stage = chosenBloom
+        newPomodoro.toBloom = chosenBloom
+//        let _ = print("hi3!\(chosenBloom?.stage)")
+//        let _ = print("hi4!\(newPomodoro.toBloom?.stage)")
         
-        newPomodoro.toBloom = newBloom
         do{
             try viewContext.save()
         }catch{
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+        
+        userGoal = ""
     }
+    
+    
+    public func addBloomList(){
+        print("addBloomList")
+
+        for value in bloomTaks {
+            let newBloom = Bloom(context: viewContext)
+            newBloom.stage = value
+        }
+        do{
+            try viewContext.save()
+        }catch{
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        
+    }
+    
+    //    public func addBloom(){
+    //        let newBloom = Bloom(context: viewContext)
+    //        newBloom.stage = chosenBloom
+    //        newBloom.goal = userGoal
+    //
+    //        //a new istance of the pomodoro entity which will be bounded with Bloom entity
+    //        let createPomodoro = Pomodoro(context: viewContext)
+    //        createPomodoro.cycles = 0
+    //        createPomodoro.time = Date()
+    //
+    //        //newBloom.toPomodoro = createPomodoro
+    //        do{
+    //            try viewContext.save()
+    //        }catch{
+    //            let nsError = error as NSError
+    //            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    //        }
+    //    }
     
     
 }

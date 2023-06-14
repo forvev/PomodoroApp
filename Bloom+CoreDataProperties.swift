@@ -2,7 +2,7 @@
 //  Bloom+CoreDataProperties.swift
 //  LaboProjekt
 //
-//  Created by Artur Zelik on 12/06/2023.
+//  Created by Artur Zelik on 14/06/2023.
 //  Copyright © 2023 student. All rights reserved.
 //
 //
@@ -17,18 +17,33 @@ extension Bloom {
         return NSFetchRequest<Bloom>(entityName: "Bloom")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var stage: Int16
-    //@NSManaged public var toPomodoro: Pomodoro?
-    @NSManaged public var toBloom: NSSet?
-    
-    public var itemArray: [Bloom] {
-        let set = toBloom as? Set<Bloom> ?? []
+    @NSManaged public var stage: String?
+    //@NSManaged public var toPomodoro: NSSet?
+    @NSManaged public var toPomodoro: NSSet?
+
+    public var pomodoroArray: [Pomodoro] {
+        let set = toPomodoro as? Set<Pomodoro> ?? []
         return set.sorted{
-            $0.stage < $1.stage
+            $0.cycles < $1.cycles
         }
     }
-    
+
+}
+
+// MARK: Generated accessors for toPomodoro
+extension Bloom {
+
+    @objc(addToPomodoroObject:)
+    @NSManaged public func addToToPomodoro(_ value: Pomodoro)
+
+    @objc(removeToPomodoroObject:)
+    @NSManaged public func removeFromToPomodoro(_ value: Pomodoro)
+
+    @objc(addToPomodoro:)
+    @NSManaged public func addToToPomodoro(_ values: NSSet)
+
+    @objc(removeToPomodoro:)
+    @NSManaged public func removeFromToPomodoro(_ values: NSSet)
 
 }
 

@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct ClockView: View {
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.time, ascending: true)], animation: .default)
+    @Environment (\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.cycles, ascending: true)], animation: .default)
     private var pomodoroList : FetchedResults<Pomodoro>
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.id, ascending: true)],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stage, ascending: true)],
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
@@ -48,19 +50,51 @@ struct ClockView: View {
                             .resizable()
                             .frame(width: 50, height: 50)
                     }
-                    
-//                    List{
-//                        ForEach(pomodoroList){ pomodoro in
-//                            //Section(header: Text("\()"))
-//                            ForEach(pomodoro.itemArray){ bloom in
-//                                //Text("cycles: \(bloom.)")
-//                            }
-//                        }
-//                    }
+                    Text("my text: \(pomodoroList.count)")
+            
+
+                    List{
+                        ForEach(bloomList){ bloom in
+                            Section(header: Text("\(bloom.stage!)")){
+                                //Text("ds \(bloom.pomodoroArray.count)")
+                                ForEach(bloom.pomodoroArray){ pomodoro in
+                                    Text("Goal: \(pomodoro.goal ?? "")")
+                                }
+                            }
+                        }.onDelete(perform: deleteBloom)
+                    }.onAppear(){
+                        viewContext.refreshAllObjects()
+                    }
                 }
             }
         }
         
+    }
+    
+    private func deleteBloom(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { bloomList[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    private func deletePomodoro(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { pomodoroList[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
 
