@@ -15,6 +15,7 @@
 		3FF34F69284E452400D6941C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FF34F68284E452400D6941C /* Preview Assets.xcassets */; };
 		3FF34F6C284E452400D6941C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FF34F6A284E452400D6941C /* LaunchScreen.storyboard */; };
 		7594B3A52A3666FD009175F9 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594B3A42A3666FC009175F9 /* ClockView.swift */; };
+		7594B3F32A3A58D8009175F9 /* BloomStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594B3F22A3A58D8009175F9 /* BloomStatus.swift */; };
 		75ECF4322A30646F0076358E /* Pomodoro+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF42E2A30646F0076358E /* Pomodoro+CoreDataClass.swift */; };
 		75ECF4332A30646F0076358E /* Pomodoro+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF42F2A30646F0076358E /* Pomodoro+CoreDataProperties.swift */; };
 		75ECF4342A30646F0076358E /* Bloom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECF4302A30646F0076358E /* Bloom+CoreDataClass.swift */; };
@@ -34,6 +35,7 @@
 		7594B3A42A3666FC009175F9 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		7594B3A72A37AA5A009175F9 /* LaboProjekt 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "LaboProjekt 2.xcdatamodel"; sourceTree = "<group>"; };
 		7594B3A82A37ABDB009175F9 /* LaboProjekt3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaboProjekt3.xcdatamodel; sourceTree = "<group>"; };
+		7594B3F22A3A58D8009175F9 /* BloomStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloomStatus.swift; sourceTree = "<group>"; };
 		75ECF42E2A30646F0076358E /* Pomodoro+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataClass.swift"; sourceTree = "<group>"; };
 		75ECF42F2A30646F0076358E /* Pomodoro+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pomodoro+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		75ECF4302A30646F0076358E /* Bloom+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bloom+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				3FF34F5E284E452200D6941C /* SceneDelegate.swift */,
 				3FF34F63284E452200D6941C /* ContentView.swift */,
 				7594B3A42A3666FC009175F9 /* ClockView.swift */,
+				7594B3F22A3A58D8009175F9 /* BloomStatus.swift */,
 				3FF34F65284E452400D6941C /* Assets.xcassets */,
 				3FF34F6A284E452400D6941C /* LaunchScreen.storyboard */,
 				3FF34F6D284E452400D6941C /* Info.plist */,
@@ -171,6 +174,7 @@
 				75ECF4332A30646F0076358E /* Pomodoro+CoreDataProperties.swift in Sources */,
 				75ECF4342A30646F0076358E /* Bloom+CoreDataClass.swift in Sources */,
 				75ECF4322A30646F0076358E /* Pomodoro+CoreDataClass.swift in Sources */,
+				7594B3F32A3A58D8009175F9 /* BloomStatus.swift in Sources */,
 				3FF34F5F284E452200D6941C /* SceneDelegate.swift in Sources */,
 				3FF34F64284E452200D6941C /* ContentView.swift in Sources */,
 				75ECF4352A30646F0076358E /* Bloom+CoreDataProperties.swift in Sources */,

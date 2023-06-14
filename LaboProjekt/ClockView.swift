@@ -31,18 +31,25 @@ struct ClockView: View {
         }
         
     var body: some View {
-        NavigationView{
             ZStack{
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
+                    NavigationLink(
+                        destination: BloomStatus(),
+                        label: {
+                            Text("Go to the summary")
+                                .frame(width: 100)
+                                .border(Color.gray)
+                        })
+                    
                     Text("Time remaining: \(formattedTimeRemaining)")
-                                        .onReceive(timer) { _ in
-                                            if (timeRemaining > 0 && isPressed == true){
-                                                timeRemaining -= 1
-                                            }
-                                        }
-                                        .font(.largeTitle)
+                        .onReceive(timer) { _ in
+                            if (timeRemaining > 0 && isPressed == true){
+                                timeRemaining -= 1
+                            }
+                        }
+                        .font(.largeTitle)
                     
                     Button{
                         isPressed.toggle()
@@ -51,37 +58,8 @@ struct ClockView: View {
                             .frame(width: 50, height: 50)
                     }
                     Text("my text: \(pomodoroList.count)")
-            
-
-                    List{
-                        ForEach(bloomList){ bloom in
-                            Section(header: Text("\(bloom.stage!)")){
-                                //Text("ds \(bloom.pomodoroArray.count)")
-                                ForEach(bloom.pomodoroArray){ pomodoro in
-                                    Text("Goal: \(pomodoro.goal ?? "")")
-                                }
-                            }
-                        }.onDelete(perform: deleteBloom)
-                    }.onAppear(){
-                        viewContext.refreshAllObjects()
-                    }
                 }
             }
-        }
-        
-    }
-    
-    private func deleteBloom(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { bloomList[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
     
     private func deletePomodoro(offsets: IndexSet) {
@@ -98,8 +76,8 @@ struct ClockView: View {
     }
 }
 
-struct ClockView_Previews: PreviewProvider {
-    static var previews: some View {
-        ClockView()
-    }
-}
+//struct ClockView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ClockView()
+//    }
+//}
