@@ -27,7 +27,7 @@ struct ContentView: View {
     @State private var isActive: Bool = false
     @State private var showInformation = false
     @State private var showInformation2 = false
-    @State var easterEgg = ["You have found an easter egg", "Nice taps", "Slow down", "What are you doing", "Thats so many taps", "You're master of taps"]
+    @State var easterEgg = ["You have found an easter egg, tap more!", "Did you now that Bloom's taxonomy are named after Benjamin Bloom?", "Did you now that Bloom's taxonomy have 6 lvl of knowledge?", "Did you know that Pomodoro technique was developed by Francesco Cirillo?", "Did you know that Pomodoro was discovered in late 80s?", "App was created by Artur Zelik and Grzegorz Zielinski"]
     @State var messageNO = -1
     @State private var alertActive: Bool = false
     @State private var isGeneratedBloom: Bool = true
@@ -144,6 +144,7 @@ struct ContentView: View {
                         .background(Color.green)
                         .cornerRadius(10)
                         .transition(.opacity)
+                        .multilineTextAlignment(.center)
                 }
             }
             .onAppear{checkBloom()}

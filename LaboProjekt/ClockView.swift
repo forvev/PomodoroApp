@@ -22,6 +22,8 @@ struct ClockView: View {
     @State var isPressed: Bool = false
     @Binding var currentPomodoro: Pomodoro?
     @State private var chosenBloom: Bloom?
+    @State private var isPopupPresented = false
+    @State private var navigate = false
         
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -120,7 +122,55 @@ struct ClockView: View {
                     }
                     
                     Spacer()
+                    
+                    }
+                ZStack{
+                    if (currentPomodoro != nil){
+                        Button{
+                            chosenBloom = currentPomodoro?.toBloom
+                            isPopupPresented = true
+                        }label:{
+                            Text("Change Stage")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(8)
+                        }
+                        .offset(x: -UIScreen.main.bounds.width * 0, y: UIScreen.main.bounds.height * 0.4)                     }
+                    if(isPopupPresented){
+                        VStack{
+                            Picker(selection: $chosenBloom, label: Text("Choose the level of Bloom")) {
+                                ForEach(bloomList, id: \.self) { bloom in
+                                    Text(bloom.stage!).tag(bloom as Bloom?)
+                                }
+                            }
+                            HStack{
+                                Button("Save"){
+                                    changeMyBloom()
+                                    isPopupPresented = false
+                                    navigate = true
+                                    navigate = false
+                                }.padding()
+                                    NavigationLink(destination: BloomStatus(),isActive: $navigate){
+                                        EmptyView()
+                                    }.hidden()
+                                        
+                                        
+                                
+                                
+                                Button("Cancel"){
+                                    isPopupPresented = false
+                                }.padding()
+                            }
+                        }
+                        .frame(width: 200, height:150)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .padding()
+                    }
                 }
+        
             }
             .navigationBarBackButtonHidden(true)
 
@@ -152,14 +202,20 @@ struct ClockView: View {
     }
     
     private func changeMyBloom(){
-        var my_number = 0
-        var my_string = chosenBloom?.stage?.first
-        
-        print("my str: \(my_string)")
-        
-        //currentPomodoro?.toBloom?.stage = chosenBloom?.stage
+        //var my_number = 0
+        //var my_string = currentPomodoro?.toBloom?.stage ?? ""
+        //currentPomodoro?.toBloom?.stage ?? ""
+        //print("my str: \(my_string)")
+        guard let currentPomodoro = currentPomodoro else {return}
+        currentPomodoro.toBloom = chosenBloom
         //currentPomodoro?.toBloom?.stageInt = Int16(chosenBloom?.stageInt ?? 0)
-        
+        do{
+            try viewContext.save()
+        }catch{
+            print("Failed to save")
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 }
 
