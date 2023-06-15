@@ -32,6 +32,11 @@ struct ContentView: View {
             ZStack{
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
+                Image("logoWhite")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40.0, height: 60.0)
+                    .offset(x: -UIScreen.main.bounds.width * 0.4, y:-UIScreen.main.bounds.height * 0.4)
                 
                 VStack{
                     if (bloomList.count == 0 ){
