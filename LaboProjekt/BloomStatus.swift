@@ -26,9 +26,12 @@ struct BloomStatus: View {
                 List{
                     ForEach(bloomList){ bloom in
                         Section(header: Text("\(bloom.stage!)")){
-                            //Text("ds \(bloom.pomodoroArray.count)")
                             ForEach(bloom.pomodoroArray){ pomodoro in
-                                Text("Goal: \(pomodoro.goal ?? "")")
+                                HStack{
+                                    Text("Your goal: \(pomodoro.goal ?? "")")
+                                    Spacer()
+                                    Text("Cycles: \(pomodoro.cycles)")
+                                }
                             }
                         }
                     }.onDelete(perform: deleteBloom)

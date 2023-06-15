@@ -18,6 +18,7 @@ extension Bloom {
     }
 
     @NSManaged public var stage: String?
+    @NSManaged public var stageInt: Int16
     //@NSManaged public var toPomodoro: NSSet?
     @NSManaged public var toPomodoro: NSSet?
 

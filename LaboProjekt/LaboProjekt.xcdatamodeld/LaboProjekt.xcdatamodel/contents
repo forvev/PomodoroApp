@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bloom" representedClassName="Bloom" syncable="YES">
         <attribute name="stage" optional="YES" attributeType="String"/>
+        <attribute name="stageInt" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="toPomodoro" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pomodoro" inverseName="toBloom" inverseEntity="Pomodoro"/>
     </entity>
     <entity name="Pomodoro" representedClassName="Pomodoro" syncable="YES">

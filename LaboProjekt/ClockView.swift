@@ -14,7 +14,7 @@ struct ClockView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.cycles, ascending: true)], animation: .default)
     private var pomodoroList : FetchedResults<Pomodoro>
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stage, ascending: true)],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stageInt, ascending: true)],
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
@@ -47,6 +47,9 @@ struct ClockView: View {
                         .onReceive(timer) { _ in
                             if (timeRemaining > 0 && isPressed == true){
                                 timeRemaining -= 1
+                            }
+                            else if(timeRemaining == 0){
+                                
                             }
                         }
                         .font(.largeTitle)

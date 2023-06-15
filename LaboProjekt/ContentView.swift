@@ -13,14 +13,14 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.cycles, ascending: true)], animation: .default)
     private var pomodoroList : FetchedResults<Pomodoro>
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stage, ascending: true)],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Bloom.stageInt, ascending: true)],
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
     @State private var userGoal: String = ""
     let myColor = Color("myBackground")
     
-    @State var bloomTaks = ["Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"]
+    @State var bloomTaks = ["1.Knowledge", "2.Comprehension", "3.Application", "4.Analysis", "5.Synthesis", "6.Evaluation"]
     //@State var chosenBloom : String = ""
     @State private var chosenBloom: Bloom?
     @State private var isActive: Bool = false
@@ -88,8 +88,6 @@ struct ContentView: View {
         newPomodoro.goal = userGoal
         
         newPomodoro.toBloom = chosenBloom
-//        let _ = print("hi3!\(chosenBloom?.stage)")
-//        let _ = print("hi4!\(newPomodoro.toBloom?.stage)")
         
         do{
             try viewContext.save()
@@ -104,10 +102,12 @@ struct ContentView: View {
     
     public func addBloomList(){
         print("addBloomList")
-
+        var temp = 1
         for value in bloomTaks {
             let newBloom = Bloom(context: viewContext)
             newBloom.stage = value
+            newBloom.stageInt = Int16(temp)
+            temp += 1
         }
         do{
             try viewContext.save()
