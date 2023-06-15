@@ -127,15 +127,16 @@ struct ContentView: View {
                                 .cornerRadius(8)
                         }
                         
+                        let _ = print("hey1: \(currentPomodoro?.goal)")
                         NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
                             EmptyView()
                         }
                         Spacer()
                     }
                     
-                    NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
-                        EmptyView()
-                    }
+//                    NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
+//                        EmptyView()
+//                    }
                 }
                 if showInformation{
                     Text(easterEgg[messageNO])
@@ -163,6 +164,7 @@ struct ContentView: View {
         newPomodoro.goal = userGoal
         newPomodoro.toBloom = chosenBloom
         
+        let _ = print("hey2: \(currentPomodoro?.goal)")
         currentPomodoro = newPomodoro
         do{
             try viewContext.save()
