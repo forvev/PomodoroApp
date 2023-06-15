@@ -31,10 +31,16 @@ struct ContentView: View {
     @State var messageNO = -1
     @State private var alertActive: Bool = false
     @State private var isGeneratedBloom: Bool = true
+    @State var location: CGPoint = CGPoint(x:50, y:50)
+
     let myFont = Font.system(size: 20, weight: .bold)
     
     
     var body: some View {
+        let dragGesture = DragGesture()
+                    .onChanged{value in
+                        self.location =
+                        value.location}
         NavigationView{
             ZStack{
                 Color(red: 0.621, green: 0.27, blue: 0.343)
@@ -70,6 +76,7 @@ struct ContentView: View {
                     })
                     .frame(width: 140.0, height: 160.0)
                     .offset(x: -UIScreen.main.bounds.width * 0, y:-UIScreen.main.bounds.height * 0.2)
+                    .gesture(dragGesture)
                    
                 
                 VStack{
@@ -127,16 +134,12 @@ struct ContentView: View {
                                 .cornerRadius(8)
                         }
                         
-                        let _ = print("hey1: \(currentPomodoro?.goal)")
                         NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
                             EmptyView()
                         }
                         Spacer()
                     }
-                    
-//                    NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
-//                        EmptyView()
-//                    }
+                
                 }
                 if showInformation{
                     Text(easterEgg[messageNO])
@@ -165,7 +168,6 @@ struct ContentView: View {
         newPomodoro.goal = userGoal
         newPomodoro.toBloom = chosenBloom
         
-        let _ = print("hey2: \(currentPomodoro?.goal)")
         currentPomodoro = newPomodoro
         do{
             try viewContext.save()

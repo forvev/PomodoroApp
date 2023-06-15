@@ -25,6 +25,7 @@ struct ClockView: View {
     @State private var chosenBloom: Bloom?
     @State private var isPopupPresented = false
     @State private var navigate = false
+    @State var scaleImg: CGFloat = 1.0
         
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -33,6 +34,7 @@ struct ClockView: View {
             let seconds = Int(timeRemaining) % 60
             return String(format: "%02d:%02d", minutes, seconds)
         }
+    
     
     var btnBack : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
@@ -69,6 +71,13 @@ struct ClockView: View {
                             .padding()
                             .background(Color(red: 0.521, green: 0.27, blue: 0.343))
                             .cornerRadius(8)
+                            .scaleEffect(scaleImg)
+                            .gesture(TapGesture()
+                                    .onEnded(){_ in scaleImg += 0.25
+                                        if (scaleImg>2){
+                                            scaleImg = 1
+                                        }
+                                    })
                     }
                 
                     
@@ -84,6 +93,13 @@ struct ClockView: View {
                             }
                         }
                         .font(.largeTitle)
+                        .scaleEffect(scaleImg)
+                        .gesture(TapGesture()
+                                .onEnded(){_ in scaleImg += 0.25
+                                    if (scaleImg>2){
+                                        scaleImg = 1
+                                    }
+                                })
                     
                     //if the pomodoro isn't created a user has to choose the pomodoro's goal
                     if(currentPomodoro != nil)
