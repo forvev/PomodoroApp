@@ -23,6 +23,7 @@ struct ContentView: View {
     @State var bloomTaks = ["1.Knowledge", "2.Comprehension", "3.Application", "4.Analysis", "5.Synthesis", "6.Evaluation"]
     //@State var chosenBloom : String = ""
     @State private var chosenBloom: Bloom?
+    @State private var currentPomodoro: Pomodoro?
     @State private var isActive: Bool = false
     
     
@@ -38,7 +39,7 @@ struct ContentView: View {
                             Text("Add bloom list")
                         }
                     }
-                    NavigationLink(destination: ClockView()){
+                    NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro)){
                         Text("Go to the clock directly")
                             .border(Color.black)
                             .frame(width: 100)
@@ -72,7 +73,7 @@ struct ContentView: View {
 //                            .frame(width: 100)
 //                            .border(Color.gray)
 //                    })
-                    NavigationLink(destination: ClockView(), isActive: $isActive){
+                    NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
                         EmptyView()
                     }
                 }
@@ -86,9 +87,9 @@ struct ContentView: View {
         newPomodoro.cycles = myCycles!
         //newPomodoro.time = Date()
         newPomodoro.goal = userGoal
-        
         newPomodoro.toBloom = chosenBloom
         
+        currentPomodoro = newPomodoro
         do{
             try viewContext.save()
         }catch{

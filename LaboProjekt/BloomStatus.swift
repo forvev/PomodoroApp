@@ -18,6 +18,8 @@ struct BloomStatus: View {
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
+    @State private var myCurrentPomodoro: Pomodoro?
+    
     var body: some View {
         ZStack{
             Color(red: 0.621, green: 0.27, blue: 0.343)
@@ -27,10 +29,14 @@ struct BloomStatus: View {
                     ForEach(bloomList){ bloom in
                         Section(header: Text("\(bloom.stage!)")){
                             ForEach(bloom.pomodoroArray){ pomodoro in
-                                HStack{
-                                    Text("Your goal: \(pomodoro.goal ?? "")")
-                                    Spacer()
-                                    Text("Cycles: \(pomodoro.cycles)")
+                                NavigationLink(destination: ClockView(currentPomodoro: $myCurrentPomodoro).onAppear{
+                                    myCurrentPomodoro = pomodoro
+                                }){
+                                    HStack{
+                                        Text("Your goal: \(pomodoro.goal ?? "")")
+                                        Spacer()
+                                        Text("Cycles: \(pomodoro.cycles)")
+                                    }
                                 }
                             }
                         }

@@ -18,9 +18,9 @@ struct ClockView: View {
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
-    @State var startDate : Date = Date()
     @State var timeRemaining: TimeInterval = 1500 // 25 minutes in seconds
     @State var isPressed: Bool = false
+    @Binding var currentPomodoro: Pomodoro?
         
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -35,6 +35,12 @@ struct ClockView: View {
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
+                    if (currentPomodoro == nil){
+                        Text("You need to wrtie the goal or choose it from the list!")
+                    }else{
+                        Text("Your current goal: \(currentPomodoro?.goal ?? "")")
+                    }
+                    
                     NavigationLink(
                         destination: BloomStatus(),
                         label: {
@@ -49,16 +55,21 @@ struct ClockView: View {
                                 timeRemaining -= 1
                             }
                             else if(timeRemaining == 0){
-                                
+                                timeRemaining = 1500
+                                currentPomodoro?.cycles += 1
                             }
                         }
                         .font(.largeTitle)
                     
-                    Button{
-                        isPressed.toggle()
-                    }label:{Image(systemName: "play.circle.fill")
-                            .resizable()
-                            .frame(width: 50, height: 50)
+                    //if the pomodoro isn't created a user has to choose the pomodoro's goal
+                    if(currentPomodoro != nil)
+                    {
+                        Button{
+                            isPressed.toggle()
+                        }label:{Image(systemName: "play.circle.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                        }
                     }
                     Text("my text: \(pomodoroList.count)")
                 }
