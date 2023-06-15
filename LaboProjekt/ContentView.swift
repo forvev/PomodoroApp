@@ -90,7 +90,7 @@ struct ContentView: View {
                     if(isGeneratedBloom == true){
                         Spacer()
                         
-                        TextField("Your goal..", text: $userGoal)
+                        TextField("Your goal...", text: $userGoal)
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
@@ -102,7 +102,6 @@ struct ContentView: View {
                             )
                             .padding(.horizontal)
                         
-                        let _ = print("fdfsd: \(chosenBloom?.stage)")
                         Picker(selection: $chosenBloom, label: Text("Choose the level of Bloom")) {
                             ForEach(bloomList, id: \.self) { bloom in
                                 Text(bloom.stage!).tag(bloom as Bloom?)
@@ -145,14 +144,14 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .transition(.opacity)
                 }
-            }.onAppear{
-                checkBloom()
             }
+            .onAppear{checkBloom()}
             
         }.alert(isPresented: $alertActive){
             Alert(title: Text("Error"),
                               message: Text("You have to write down a goal and choose the bloom level!"),
                               dismissButton: .default(Text("OK")))}
+        .navigationBarBackButtonHidden(true)
         
         }
     

@@ -40,6 +40,7 @@ struct BloomStatus: View {
                                         Text("Your goal: \(pomodoro.goal ?? "")")
                                         Spacer()
                                         Text("Cycles: \(pomodoro.cycles)")
+                                        
                                     }
                                 }
                             }

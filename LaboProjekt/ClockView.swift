@@ -35,19 +35,56 @@ struct ClockView: View {
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
+                    HStack{
+                        NavigationLink(
+                            destination: ContentView(),
+                            label: {
+                                HStack{
+                                    Text("Home")
+                                    Image(systemName: "house.fill")
+                                }
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(8)
+                            })
+                        
+                        Spacer()
+                        
+                        NavigationLink(
+                            destination: BloomStatus(),
+                            label: {
+                                HStack{
+                                    Text("Summary")
+                                    Image(systemName: "book")
+                                }.font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(8)
+                                
+                            })
+                    }
+                    
+                    
+                    Spacer()
+                    
                     if (currentPomodoro == nil){
                         Text("You need to wrtie the goal or choose it from the list!")
                     }else{
-                        Text("Your current goal: \(currentPomodoro?.goal ?? "")")
+                        VStack{
+                            Text("Your current goal: \(currentPomodoro?.goal ?? "")")
+                            Text("Cycles: \(currentPomodoro?.cycles ?? 0)")
+                            Text("Bloom's stage: \(currentPomodoro?.toBloom?.stage ?? "")")
+                            Picker(selection: $currentPomodoro, label: Text("Choose the level of Bloom")) {
+                                ForEach(bloomList, id: \.self) { bloom in
+                                    Text(bloom.stage!).tag(bloom as Bloom?)
+                                }
+                            }
+                        }
                     }
-                    
-                    NavigationLink(
-                        destination: BloomStatus(),
-                        label: {
-                            Text("Go to the summary")
-                                .frame(width: 100)
-                                .border(Color.gray)
-                        })
+                
                     
                     Text("Time remaining: \(formattedTimeRemaining)")
                         .onReceive(timer) { _ in
@@ -72,8 +109,12 @@ struct ClockView: View {
                                 .frame(width: 50, height: 50)
                         }
                     }
+                    
+                    Spacer()
                 }
             }
+            .navigationBarBackButtonHidden(true)
+
     }
     
     private func deletePomodoro(offsets: IndexSet) {
