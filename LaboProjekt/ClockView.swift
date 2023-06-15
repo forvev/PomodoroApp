@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ClockView: View {
     @Environment (\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode> //to change the button
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Pomodoro.cycles, ascending: true)], animation: .default)
     private var pomodoroList : FetchedResults<Pomodoro>
@@ -32,63 +33,37 @@ struct ClockView: View {
             let seconds = Int(timeRemaining) % 60
             return String(format: "%02d:%02d", minutes, seconds)
         }
+    
+    var btnBack : some View { Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack{
+                    Text("Back")
+                    Image(systemName: "arrowshape.backward")
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(8)
+            }
+        }
         
     var body: some View {
             ZStack{
                 Color(red: 0.621, green: 0.27, blue: 0.343)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
-                    HStack{
-                        NavigationLink(
-                            destination: ContentView(),
-                            label: {
-                                HStack{
-                                    Text("Home")
-                                    Image(systemName: "house.fill")
-                                }
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .cornerRadius(8)
-                            })
-                        
-                        Spacer()
-                        
-                        NavigationLink(
-                            destination: BloomStatus(),
-                            label: {
-                                HStack{
-                                    Text("Summary")
-                                    Image(systemName: "book")
-                                }.font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
-                                
-                            })
-                    }
-                    
-                    
                     Spacer()
                     
                     if (currentPomodoro == nil){
-                        Text("You need to wrtie the goal or choose it from the list!")
+                        Text("You have to provide the goal or choose it from the list!")
                     }else{
                         VStack{
                             Text("Your current goal: \(currentPomodoro?.goal ?? "")")
                             Text("Cycles: \(currentPomodoro?.cycles ?? 0)")
                             Text("Bloom's stage: \(currentPomodoro?.toBloom?.stage ?? "")")
                             
-//                            Picker(selection: $chosenBloom, label: Text("Choose the level of Bloom")) {
-//                                ForEach(bloomList, id: \.self) { bloom in
-//                                    Text(bloom.stage!).tag(bloom as Bloom?)
-//                                }
-//                            }
-//                            .onTapGesture {
-//                                changeMyBloom()
-//                            }
                         }.font(.headline)
                             .foregroundColor(.white)
                             .padding()
@@ -115,15 +90,23 @@ struct ClockView: View {
                     {
                         Button{
                             isPressed.toggle()
-                        }label:{Image(systemName: "play.circle.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
+                        }label:{
+                            if(isPressed == true){
+                                Image(systemName: "pause")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            }
+                            else{
+                                Image(systemName: "play.circle.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
                         }
                     }
                     
                     Spacer()
                     
-                    }
+                }
                 ZStack{
                     if (currentPomodoro != nil){
                         Button{
@@ -150,15 +133,11 @@ struct ClockView: View {
                                     changeMyBloom()
                                     isPopupPresented = false
                                     navigate = true
-                                    navigate = false
                                 }.padding()
-                                    NavigationLink(destination: BloomStatus(),isActive: $navigate){
-                                        EmptyView()
-                                    }.hidden()
+                                NavigationLink(destination: BloomStatus(),isActive: $navigate){
+                                    EmptyView()
+                                }
                                         
-                                        
-                                
-                                
                                 Button("Cancel"){
                                     isPopupPresented = false
                                 }.padding()
@@ -173,7 +152,23 @@ struct ClockView: View {
         
             }
             .navigationBarBackButtonHidden(true)
-
+            .navigationBarItems(leading: btnBack, trailing:
+                                    HStack {
+                                        Spacer()
+                                        NavigationLink(
+                                            destination: BloomStatus(),
+                                            label: {
+                                                HStack{
+                                                    Text("Summary")
+                                                    Image(systemName: "book")
+                                                }.font(.headline)
+                                                    .foregroundColor(.white)
+                                                    .padding()
+                                                    .background(Color.blue)
+                                                    .cornerRadius(8)
+                                                
+                                            })
+                                    })
         
     }
     

@@ -153,7 +153,7 @@ struct ContentView: View {
             Alert(title: Text("Error"),
                               message: Text("You have to write down a goal and choose the bloom level!"),
                               dismissButton: .default(Text("OK")))}
-        .navigationBarBackButtonHidden(true)
+        //.navigationBarBackButtonHidden(true)
         
         }
     
