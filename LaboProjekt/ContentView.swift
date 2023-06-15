@@ -25,7 +25,10 @@ struct ContentView: View {
     @State private var chosenBloom: Bloom?
     @State private var currentPomodoro: Pomodoro?
     @State private var isActive: Bool = false
-    
+    @State private var showInformation = false
+    @State private var showInformation2 = false
+    @State var easterEgg = ["You found an easter egg", "Nice taps", "Slow down", "What are you doing", "Thats so many taps", "You're master of taps"]
+    @State var messageNO = -1
     
     var body: some View {
         NavigationView{
@@ -37,6 +40,20 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40.0, height: 60.0)
                     .offset(x: -UIScreen.main.bounds.width * 0.4, y:-UIScreen.main.bounds.height * 0.4)
+                    .gesture(TapGesture(count: 2).onEnded{
+                        if(messageNO < 5){
+                            messageNO += 1
+                        }else{
+                            messageNO = 0
+                        }
+                        showInformation = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                            showInformation = false
+                        }
+                    })
+                
+                
+                
                 
                 VStack{
                     if (bloomList.count == 0 ){
@@ -71,16 +88,23 @@ struct ContentView: View {
                             .border(Color.gray)
                     }
                     
-//                    NavigationLink(destination: ClockView().onAppear{
-//                        addPomodoro()
-//                    },label: {
-//                        Text("confirm")
-//                            .frame(width: 100)
-//                            .border(Color.gray)
-//                    })
+                    //                    NavigationLink(destination: ClockView().onAppear{
+                    //                        addPomodoro()
+                    //                    },label: {
+                    //                        Text("confirm")
+                    //                            .frame(width: 100)
+                    //                            .border(Color.gray)
+                    //                    })
                     NavigationLink(destination: ClockView(currentPomodoro: $currentPomodoro), isActive: $isActive){
                         EmptyView()
                     }
+                }
+                if showInformation{
+                    Text(easterEgg[messageNO])
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .transition(.opacity)
                 }
             }
         }
