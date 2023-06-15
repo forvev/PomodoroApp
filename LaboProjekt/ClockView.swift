@@ -21,6 +21,7 @@ struct ClockView: View {
     @State var timeRemaining: TimeInterval = 2 // 25 minutes in seconds
     @State var isPressed: Bool = false
     @Binding var currentPomodoro: Pomodoro?
+    @State private var chosenBloom: Bloom?
         
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -77,12 +78,20 @@ struct ClockView: View {
                             Text("Your current goal: \(currentPomodoro?.goal ?? "")")
                             Text("Cycles: \(currentPomodoro?.cycles ?? 0)")
                             Text("Bloom's stage: \(currentPomodoro?.toBloom?.stage ?? "")")
-                            Picker(selection: $currentPomodoro, label: Text("Choose the level of Bloom")) {
-                                ForEach(bloomList, id: \.self) { bloom in
-                                    Text(bloom.stage!).tag(bloom as Bloom?)
-                                }
-                            }
-                        }
+                            
+//                            Picker(selection: $chosenBloom, label: Text("Choose the level of Bloom")) {
+//                                ForEach(bloomList, id: \.self) { bloom in
+//                                    Text(bloom.stage!).tag(bloom as Bloom?)
+//                                }
+//                            }
+//                            .onTapGesture {
+//                                changeMyBloom()
+//                            }
+                        }.font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color(red: 0.521, green: 0.27, blue: 0.343))
+                            .cornerRadius(8)
                     }
                 
                     
@@ -115,6 +124,7 @@ struct ClockView: View {
             }
             .navigationBarBackButtonHidden(true)
 
+        
     }
     
     private func deletePomodoro(offsets: IndexSet) {
@@ -139,6 +149,17 @@ struct ClockView: View {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+    }
+    
+    private func changeMyBloom(){
+        var my_number = 0
+        var my_string = chosenBloom?.stage?.first
+        
+        print("my str: \(my_string)")
+        
+        //currentPomodoro?.toBloom?.stage = chosenBloom?.stage
+        //currentPomodoro?.toBloom?.stageInt = Int16(chosenBloom?.stageInt ?? 0)
+        
     }
 }
 
