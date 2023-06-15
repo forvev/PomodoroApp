@@ -25,6 +25,10 @@ struct BloomStatus: View {
             Color(red: 0.621, green: 0.27, blue: 0.343)
                 .edgesIgnoringSafeArea(.all)
             VStack{
+                //in the case when there are no pomodoros
+                if (pomodoroList == nil){
+                    Text("There is nothing to display. Add goals!")
+                }
                 List{
                     ForEach(bloomList){ bloom in
                         Section(header: Text("\(bloom.stage!)")){

@@ -18,7 +18,7 @@ struct ClockView: View {
                   animation: .default)
     private var bloomList: FetchedResults<Bloom>
     
-    @State var timeRemaining: TimeInterval = 1500 // 25 minutes in seconds
+    @State var timeRemaining: TimeInterval = 2 // 25 minutes in seconds
     @State var isPressed: Bool = false
     @Binding var currentPomodoro: Pomodoro?
         
@@ -55,8 +55,9 @@ struct ClockView: View {
                                 timeRemaining -= 1
                             }
                             else if(timeRemaining == 0){
-                                timeRemaining = 1500
-                                currentPomodoro?.cycles += 1
+                                timeRemaining = 2
+                                addValueToClock() //add 1 to the cycles
+                                isPressed = false // if time is over wait for a user to press the button
                             }
                         }
                         .font(.largeTitle)
@@ -71,7 +72,6 @@ struct ClockView: View {
                                 .frame(width: 50, height: 50)
                         }
                     }
-                    Text("my text: \(pomodoroList.count)")
                 }
             }
     }
@@ -86,6 +86,17 @@ struct ClockView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        }
+    }
+    
+    private func addValueToClock(){
+        currentPomodoro?.cycles += 1
+        
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }
